@@ -7,6 +7,8 @@ on:
       - 'starter/frontend/**'
   #manual trigger
   workflow_dispatch:
+     paths:
+      - 'starter/frontend/**'
    
  
 jobs:
