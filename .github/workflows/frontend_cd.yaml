@@ -53,10 +53,6 @@ jobs:
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v2
-   
-      - name: 'Get Login to AWS ECR'
-        id: ecr-login
-        uses:  aws-actions/amazon-ecr-login@v1
         with:
           mask-password: 'true'
         env:
@@ -64,6 +60,10 @@ jobs:
           AWS_DEFAULT_OUTPUT: json
           AWS_REGION: us-east-1
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+      - name: 'Get Login to AWS ECR'
+        id: ecr-login
+        uses:  aws-actions/amazon-ecr-login@v1
         
       - name: Build tag push docker image to Amazon ECR
         env:
