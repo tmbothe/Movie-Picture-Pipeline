@@ -45,8 +45,23 @@ jobs:
     
     steps:
       # Simulate a Deployment
+      # Check out the code from the repository.
+      - uses: actions/checkout@v3
+
+      # Set up a Node.js environment using the specified node version.
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
       - name: install dependencies
         run: cd starter/frontend && npm ci
 
       - name: run tests
         run: cd starter/frontend && npm run test
+
+      - name: Run the linter.
+        run: cd  starter/frontend && npm run lint
+
+      # Send a console message at completion.
+      - run: |
+          echo "Hello ${{github.actor}}. You pushed to ${{github.repository}} at $(date)."
