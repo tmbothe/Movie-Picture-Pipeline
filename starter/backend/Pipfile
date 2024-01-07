@@ -23,3 +23,6 @@ test = "pytest -v"
 lint = "flake8"
 report = "coverage run -m pytest -v"
 lint-fail = "flake8 --max-line-length=88"
+
+[prereq]
+click = "*"
