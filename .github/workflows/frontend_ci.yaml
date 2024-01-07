@@ -25,6 +25,13 @@ jobs:
         node-version: ${{env.NODE_VERSION}}
         cache: 'npm'
 
+    - name: dependencies
+      uses: actions/checkout@v3
+      with:
+        path: ~/.npm
+        key: ${{ runner.os}}.node-${{ hashFiles('**/package-lock.json')}}
+        restore-keys: ${{runner.os}}-node
+
     - name: Install dependencies
       run: cd starter/frontend && npm ci
 
@@ -36,6 +43,23 @@ jobs:
         
     steps:
       # Simulate a Deployment
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Set up Node.js 
+        uses: actions/setup-node@v3
+        with:
+          node-version: latest
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-    
+      
+      - name: Install dependencies
+        run: cd starter/frontend && npm ci
+      
       - name: running test interactively
         run: cd starter/frontend && npm test
 
