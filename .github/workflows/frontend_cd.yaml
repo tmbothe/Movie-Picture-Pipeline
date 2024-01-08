@@ -67,10 +67,6 @@ jobs:
         id: login-ecr
         with:
           mask-password: 'true'
-        env:
-          AWS_REGION: us-east-1
-          AWS_ACCESS_KEY_ID: AKIAW3VW44O7H4NGBOGO
-          AWS_SECRET_ACCESS_KEY: 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
       - name: Build, tag, and push docker image to Amazon ECR
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
